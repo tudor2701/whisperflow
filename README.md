@@ -1,8 +1,9 @@
 # WhisperFlow
 
-Push-to-talk dictation for macOS. Hold a hotkey, speak, release — polished text
-gets typed into whatever app you're focused on. 100% local transcription via
-`mlx-whisper` (Apple Silicon), optional LLM polishing via Claude Haiku 4.5.
+Hands-free dictation for macOS. Double-tap a hotkey, speak, double-tap to stop —
+polished text gets typed into whatever app you're focused on. 100% local
+transcription via `mlx-whisper` (Apple Silicon), optional LLM polishing via
+Claude Haiku 4.5.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Platform: macOS Apple Silicon](https://img.shields.io/badge/platform-macOS%20Apple%20Silicon-black)
@@ -10,7 +11,7 @@ gets typed into whatever app you're focused on. 100% local transcription via
 ## Pipeline
 
 ```
-Hotkey hold  →  mic capture  →  mlx-whisper (large-v3)
+Double-tap   →  mic capture  →  mlx-whisper (large-v3)
              →  Claude Haiku cleanup  →  Cmd+V into focused app
 ```
 
@@ -111,17 +112,13 @@ After granting, quit and relaunch the terminal so the new permissions apply.
 
 1. Wait for the menu bar icon to switch from ⏳ to 🎤.
 2. Click into any text field.
-3. Trigger recording (two modes — pick one via `WHISPERFLOW_TRIGGER`):
-   - **Hold** (default): hold the hotkey, speak, release.
-   - **Double-tap**: double-tap the hotkey to start, speak, double-tap again to stop.
+3. **Double-tap the hotkey** to start recording, speak, **double-tap again** to stop.
 4. Your transcribed (and optionally polished) text appears at the cursor.
 
-The default hotkey is **Right Option (⌥)** in hold mode. Change both the key and
-the mode in `.env` — e.g. double-tap Left Control:
+The default hotkey is **Left Control**. Change it in `.env`:
 
 ```dotenv
 WHISPERFLOW_HOTKEY=ctrl_l
-WHISPERFLOW_TRIGGER=double_tap
 ```
 
 Icon states:
@@ -140,7 +137,6 @@ Icon states:
 All knobs live in `.env`. See `.env.example` for the full list. Common tweaks:
 
 - Change hotkey: `WHISPERFLOW_HOTKEY=f13`
-- Switch trigger mode: `WHISPERFLOW_TRIGGER=double_tap` (or `hold`)
 - Force language: `WHISPERFLOW_LANGUAGE=de`
 - Skip cleanup: `WHISPERFLOW_CLEANUP=0`
 - Smaller model: `WHISPERFLOW_MODEL=mlx-community/whisper-medium-mlx`

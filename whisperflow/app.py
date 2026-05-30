@@ -7,7 +7,7 @@ import rumps
 
 from .cleaner import Cleaner
 from .config import CONFIG
-from .hotkey import DoubleTapListener, HotkeyListener
+from .hotkey import DoubleTapListener
 from .injector import inject
 from .overlay import Overlay
 from .recorder import Recorder
@@ -46,8 +46,7 @@ class WhisperFlowApp(rumps.App):
         self.overlay = Overlay()
 
         self._status_item = rumps.MenuItem(f"Status: {self._state.value}")
-        _trigger_label = "Doppeltipp" if CONFIG.trigger == "double_tap" else "halten"
-        self._hotkey_item = rumps.MenuItem(f"Hotkey: {CONFIG.hotkey_name} ({_trigger_label})")
+        self._hotkey_item = rumps.MenuItem(f"Hotkey: {CONFIG.hotkey_name} (Doppeltipp)")
         self._cleanup_item = rumps.MenuItem(
             "Cleanup aktiv" if CONFIG.cleanup_enabled and self.cleaner.available else "Cleanup aus",
             callback=self.toggle_cleanup,
@@ -64,13 +63,7 @@ class WhisperFlowApp(rumps.App):
             rumps.MenuItem("Beenden", callback=lambda _: rumps.quit_application()),
         ]
 
-        if CONFIG.trigger == "double_tap":
-            self.hotkey = DoubleTapListener(on_toggle=self._on_toggle)
-        else:
-            self.hotkey = HotkeyListener(
-                on_press=self._on_hotkey_press,
-                on_release=self._on_hotkey_release,
-            )
+        self.hotkey = DoubleTapListener(on_toggle=self._on_toggle)
 
         # ~25 fps overlay driver — runs on the main thread (UI-safe)
         self._overlay_timer = rumps.Timer(self._overlay_tick, 0.04)

@@ -38,7 +38,6 @@ def _parse_key(name: str):
 class Config:
     hotkey_name: str
     hotkey: object
-    trigger: str
     model_name: str
     sample_rate: int
     language: str | None
@@ -48,14 +47,10 @@ class Config:
 
 
 def load_config() -> Config:
-    hotkey_name = os.getenv("WHISPERFLOW_HOTKEY", "alt_r")
-    trigger = os.getenv("WHISPERFLOW_TRIGGER", "hold").strip().lower()
-    if trigger not in ("hold", "double_tap"):
-        trigger = "hold"
+    hotkey_name = os.getenv("WHISPERFLOW_HOTKEY", "ctrl_l")
     return Config(
         hotkey_name=hotkey_name,
         hotkey=_parse_key(hotkey_name),
-        trigger=trigger,
         model_name=os.getenv(
             "WHISPERFLOW_MODEL", "mlx-community/whisper-large-v3-mlx"
         ),
