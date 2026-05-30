@@ -8,6 +8,12 @@ Claude Haiku 4.5.
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Platform: macOS Apple Silicon](https://img.shields.io/badge/platform-macOS%20Apple%20Silicon-black)
 
+<p align="center">
+  <img src="assets/overlay-pill.gif" alt="WhisperFlow recording overlay" width="180">
+  <br>
+  <em>A click-through pill floats above your work while you speak.</em>
+</p>
+
 ## Pipeline
 
 ```
@@ -55,6 +61,10 @@ The first launch will:
 1. Add a 🎤 icon to your menu bar.
 2. Download the Whisper model (~3 GB, one-time).
 3. Trigger macOS permission prompts.
+
+<p align="center">
+  <img src="assets/menu.png" alt="WhisperFlow menu bar dropdown" width="280">
+</p>
 
 ## API key (for cleanup)
 
@@ -121,16 +131,12 @@ The default hotkey is **Left Control**. Change it in `.env`:
 WHISPERFLOW_HOTKEY=ctrl_l
 ```
 
-Icon states:
+The menu bar icon doubles as a status indicator — it cycles through these states
+as your speech moves down the pipeline:
 
-| Icon | Meaning |
-|------|---------|
-| ⏳ | Loading model |
-| 🎤 | Idle, ready |
-| 🔴 | Recording |
-| ✍️ | Transcribing |
-| ✨ | LLM cleanup |
-| 📋 | Pasting |
+<p align="center">
+  <img src="assets/icon-states.png" alt="WhisperFlow icon states" width="100%">
+</p>
 
 ## Configuration
 
@@ -161,6 +167,7 @@ whisperflow/
 ├── cleaner.py       Claude Haiku 4.5 polish
 ├── injector.py      clipboard + Cmd+V via Quartz
 ├── hotkey.py        pynput global push-to-talk listener
+├── overlay.py       floating click-through recording pill (AppKit)
 ├── app.py           rumps menu-bar app + state machine
 └── __main__.py      entry point
 ```
