@@ -32,6 +32,23 @@ cp .env.example .env     # then add your API key — see below
 uv run python -m whisperflow
 ```
 
+<details>
+<summary>Prefer plain <code>pip</code> instead of <code>uv</code>?</summary>
+
+A pinned `requirements.txt` is generated from the lockfile:
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python -m whisperflow
+```
+
+`uv sync` remains the recommended path — it also pins the Python version.
+Regenerate the requirements file after changing dependencies:
+`uv export --format requirements-txt --no-hashes --no-emit-project -o requirements.txt`
+</details>
+
 The first launch will:
 
 1. Add a 🎤 icon to your menu bar.
