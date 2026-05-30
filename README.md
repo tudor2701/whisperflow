@@ -111,8 +111,18 @@ After granting, quit and relaunch the terminal so the new permissions apply.
 
 1. Wait for the menu bar icon to switch from ⏳ to 🎤.
 2. Click into any text field.
-3. **Hold Right Option (⌥)**, speak, release.
+3. Trigger recording (two modes — pick one via `WHISPERFLOW_TRIGGER`):
+   - **Hold** (default): hold the hotkey, speak, release.
+   - **Double-tap**: double-tap the hotkey to start, speak, double-tap again to stop.
 4. Your transcribed (and optionally polished) text appears at the cursor.
+
+The default hotkey is **Right Option (⌥)** in hold mode. Change both the key and
+the mode in `.env` — e.g. double-tap Left Control:
+
+```dotenv
+WHISPERFLOW_HOTKEY=ctrl_l
+WHISPERFLOW_TRIGGER=double_tap
+```
 
 Icon states:
 
@@ -130,6 +140,7 @@ Icon states:
 All knobs live in `.env`. See `.env.example` for the full list. Common tweaks:
 
 - Change hotkey: `WHISPERFLOW_HOTKEY=f13`
+- Switch trigger mode: `WHISPERFLOW_TRIGGER=double_tap` (or `hold`)
 - Force language: `WHISPERFLOW_LANGUAGE=de`
 - Skip cleanup: `WHISPERFLOW_CLEANUP=0`
 - Smaller model: `WHISPERFLOW_MODEL=mlx-community/whisper-medium-mlx`
